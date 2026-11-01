@@ -1,8 +1,10 @@
 # DIY Zigbee Bed Occupancy Sensor
 
-Convert an **Aqara Zigbee water leak sensor** and an inexpensive **car seat pressure pad** into a battery-powered bed occupancy sensor for **Zigbee2MQTT** and **Home Assistant**.
+Convert an Aqara Zigbee water leak sensor and an inexpensive car seat pressure pad into a battery-powered bed occupancy sensor for Zigbee2MQTT and Home Assistant.
 
-When someone lies on the pressure pad, its contacts close. The Aqara sensor reports this as a water leak, which Home Assistant can instead display as **Occupied**. When the pad is released, it reports **Clear**.
+When someone lies on the pressure pad, its contacts close. The water leak sensor reports this as a water leak, which Home Assistant can instead display as **Occupied**. When the pad is released, it reports **Clear**.
+
+Any Zigbee water leak sensor should be suitable, I use the Aqara ones as they have screw terminals that are easily accessible. This approach will also work with ZHA, but I don't use that so the instructions assume Zigbee2MQTT.
 
 > **Note:** This is a DIY convenience sensor, not a safety or medical monitoring device. Test it with your mattress before relying on it for automations.
 
@@ -14,11 +16,11 @@ When someone lies on the pressure pad, its contacts close. The Aqara sensor repo
 | Universal Car Seat Occupancy Sensor Pad | [AliExpress](https://www.aliexpress.com/item/1005012629128239.html) |
 | CR2032 battery | Fresh, good-quality replacement recommended |
 | Wire strippers and small screwdriver | For preparing and connecting the wires |
-| Soldering iron and solder | Optional |
+| Soldering iron and solder, or hot glue gun | Optional |
 
 ## 1. Prepare the Aqara sensor
 
-1. Open the Aqara sensor and replace the supplied battery with a fresh **CR2032** if necessary.
+1. Open the Aqara sensor and replace the supplied battery with a fresh CR2032. This is optional, but in my experience the batteries that come with these are usually very cheap and short-lived.
 2. Locate the two metal screw terminals on its underside.
 3. Confirm the pressure pad acts as a normally open switch: without pressure its contacts should be open; with pressure they should close.
 
@@ -30,6 +32,7 @@ When someone lies on the pressure pad, its contacts close. The Aqara sensor repo
 4. Wrap the red wire around the terminal and tighten it securely. Optionally to prevent the wires coming loose, solder the connections or use a hot glue gun to glue them.
 5. Repeat with the white wire on the other terminal.
 6. Ensure the bare wires cannot touch each other directly and that both connections are secure.
+7. Optionally gaffer tape the wires to the underside of the Aqara sensor to minimise strain on them.
 
 The pad is a simple contact switch, so **wire polarity does not matter**. Avoid overheating the sensor if soldering.
 
@@ -43,7 +46,7 @@ The pad is a simple contact switch, so **wire polarity does not matter**. Avoid 
 ## 3. Pair with Zigbee2MQTT
 
 1. Enable **Permit join** in Zigbee2MQTT.
-2. Put the Aqara water leak sensor into pairing mode, following its pairing instructions.
+2. Put the Aqara water leak sensor into pairing mode, following its pairing instructions (press it for 5 seconds).
 3. Wait for it to appear in Zigbee2MQTT.
 4. Test the pressure pad and verify the leak state changes when pressure is applied and released.
 

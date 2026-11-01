@@ -1,0 +1,37 @@
+- alias: "Bed Occupancy - Alexa Announcement"
+  id: bed_occupancy_alexa_announcement
+  description: "Announce bed occupancy changes on Living Room Echo Show"
+  mode: restart
+  trace:
+    stored_traces: 25
+
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bed_sensor_main_bedroom_occupancy
+      from: "off"
+      to: "on"
+      for:
+        seconds: 5
+      id: occupied
+
+    - platform: state
+      entity_id: binary_sensor.bed_sensor_main_bedroom_occupancy
+      from: "on"
+      to: "off"
+      for:
+        seconds: 5
+      id: unoccupied
+
+  action:
+    - service: notify.alexa_media
+      data:
+        target:
+          - media_player.living_room_echo_show
+        message: >
+          {% if trigger.id == 'occupied' %}
+            The Main Bed is occupied
+          {% else %}
+            The Main Bed is not occupied
+          {% endif %}
+        data:
+          type: announce
